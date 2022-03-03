@@ -1,57 +1,60 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * TabDelimitedClient.java
  */
 package client;
 
 import domain.Person;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author paulb
  */
 public class TabDelimitedClient {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) throws IOException {
+    
+    public Person send(Person person, int port) throws IOException {
         
             DatagramSocket socket = new DatagramSocket();
             // root project
             Path path = Paths.get("personClient.txt");
             
             // data to be sent
-            byte[] buffer = new byte[1024];
-            // first step: business object 
-            Person person = new Person("Samuel", 5, 5);
-            // second step: BO to File
+            byte[] bufferReceived = new byte[1024];
+           
             Files.write(path, person.toString().getBytes());
-            // File to Bytes
-            buffer = Files.readAllBytes(path);
             
+            // File to Bytes
+            byte[] bufferSend = Files.readAllBytes(path);
+            
+            System.out.println("Client sends: " + person.toString());
             // connection
             DatagramPacket packet = 
-                    new DatagramPacket(buffer, buffer.length, InetAddress.getLocalHost(), 999);
+                    new DatagramPacket(bufferSend, bufferSend.length, InetAddress.getLocalHost(), port);
+            
             socket.send(packet);
+            
+            packet = new DatagramPacket(bufferReceived, bufferReceived.length);
+            socket.receive(packet);
+            
+            String personText = new String(packet.getData());
+            String[] split = personText.split("\t");
+            
+            String name = split[0];
+            double height = Double.parseDouble(split[1]);
+            double weight = Double.parseDouble(split[2]);
+            double bmi = Double.parseDouble(split[3]);
+            String result = split[4];
+            
+            Person person1 = new Person(name, height, weight, bmi, result);
+            System.out.println("client receives: " + person1.toString());
             socket.close();
+            return person1;
     }
     
 }
