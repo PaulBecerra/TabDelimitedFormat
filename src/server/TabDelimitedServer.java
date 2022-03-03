@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 public class TabDelimitedServer extends Thread {
 
     private DatagramSocket socket;
-    private byte buffer[] = new byte[1024];
 
     public TabDelimitedServer(int port) throws SocketException {
         socket = new DatagramSocket(port);
@@ -33,6 +32,7 @@ public class TabDelimitedServer extends Thread {
 
         while (true) {
             try {
+                byte buffer[] = new byte[1024];
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                 socket.receive(packet);
                 
