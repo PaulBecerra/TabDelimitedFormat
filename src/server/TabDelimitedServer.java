@@ -5,6 +5,8 @@ package server;
 
 import domain.Person;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -12,6 +14,7 @@ import java.net.SocketException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,6 +63,14 @@ public class TabDelimitedServer extends Thread {
 
                 // Calculates and stores the BMI from the weight and height revieved
                 double bmi = weight / (Math.pow(height, 2));
+                
+                /** format decimal numbers **/
+                // double to BigDecimal
+                BigDecimal bmiBG = BigDecimal.valueOf(bmi);
+                // BigDecimal rounded to 2 decimals
+                BigDecimal bmiRounded = bmiBG.setScale(2, RoundingMode.FLOOR);
+                // BigDecimal to Double
+                bmi = bmiRounded.doubleValue();
                 
                 // Declaration of variable which stores the meaning of the
                 // result from the BMI calculation
