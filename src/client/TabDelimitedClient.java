@@ -19,7 +19,7 @@ import java.nio.file.Paths;
 public class TabDelimitedClient {
     
     public Person send(Person person, int port) throws IOException {
-        
+            
             // Creates the socket object for carrying the data
             DatagramSocket socket = new DatagramSocket();
             
@@ -31,15 +31,15 @@ public class TabDelimitedClient {
            
             // Writes the path to the root directory and the person a file
             Files.write(path, person.toString().getBytes());
+            System.out.println("File created from client");
             
             // Converts the String text from the file into bytes and stores it
             byte[] bufferSend = Files.readAllBytes(path);
             
-            System.out.println("Client sends: " + person.toString());
-            
             // Creates the datagramPacket for sending the data(connection)
             DatagramPacket packet = 
                     new DatagramPacket(bufferSend, bufferSend.length, InetAddress.getLocalHost(), port);
+            System.out.println("Client is sending file in bytes");
             
             // Send the Data
             socket.send(packet);
@@ -67,10 +67,11 @@ public class TabDelimitedClient {
             //Creates a person object with the infromation received from the server
             Person person1 = new Person(name, height, weight, bmi, result);
             
-            System.out.println("client receives: " + person1.toString());
+            System.out.format("%-20s %s\n", "client receives: ", person1.toString());
             
            //Closes the socket
             socket.close();
+            System.out.println("client desconnected");
             
             //Return the person with the infromation received from the server
             return person1;

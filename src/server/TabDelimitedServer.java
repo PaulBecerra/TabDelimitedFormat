@@ -28,6 +28,7 @@ public class TabDelimitedServer extends Thread {
     public TabDelimitedServer(int port) throws SocketException {
         //Create as socket to listen at a certain port
         socket = new DatagramSocket(port);
+        System.out.println("Server listens on port: "+ port);
     }
 
     public void run() {
@@ -42,11 +43,11 @@ public class TabDelimitedServer extends Thread {
                 
                 // Revieves the data in byte buffer
                 socket.receive(packet);
+                System.out.println("Server: Client connected");
                 
                 // Converts the packet's byte data to a String
                 String personText = new String(buffer);
-                
-                System.out.println("server receives: " + personText);
+                System.out.format("%-20s %s\n", "server receives: ", personText);
                 
                 // An array which saves the persons data 
                 // (Which is spilt and each attribute is saved in a different index)
@@ -95,10 +96,9 @@ public class TabDelimitedServer extends Thread {
                 // that was sent by the client
                 int port = packet.getPort();
                 
-                System.out.println("server sends: " + person.toString());
-                
                 // Creates the datagramPacket for sending the data(connection)
                 packet = new DatagramPacket(buffer, buffer.length, address, port);
+                System.out.println("Server is sending response");
                 
                  // Send the Data
                 socket.send(packet);

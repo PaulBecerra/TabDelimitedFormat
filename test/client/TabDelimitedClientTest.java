@@ -49,7 +49,6 @@ public class TabDelimitedClientTest {
      */
     @Test
     public void testSend() throws Exception {
-        System.out.println("test send person");
         Person person1 = new Person("Julian", 1.7, 70);
         Person person = new Person("Ricardo", 1.80, 60);
         Person person2 = new Person("Paul", 1.75, 80);
@@ -57,8 +56,11 @@ public class TabDelimitedClientTest {
         
         
         Person personResult = client.send(person, 9999);
+        System.out.println("");
         Person personResult1 = client.send(person1, 9999);
+        System.out.println("");
         Person personResult2 = client.send(person2, 9999);
+        System.out.println("");
         Person personResult3 = client.send(person3, 9999);
         //System.out.println(personResult1.getResult());
         // TODO review the generated test code and remove the default call to fail.
