@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * MainClient.java
  */
 package client;
 
@@ -15,12 +13,12 @@ import server.TabDelimitedServer;
 
 /**
  *
- * @author Carlos
+ * @author Paul B. Carlos A. Julian P.
  */
 public class MainClient extends javax.swing.JFrame {
 
     private TabDelimitedClient client;
-
+    private final int PORT = 9999;
     /**
      * Creates new form JFCliente
      */
@@ -30,7 +28,7 @@ public class MainClient extends javax.swing.JFrame {
         txtServerResponse.setEditable(false);
         
         try {
-            new TabDelimitedServer(9999).start();
+            new TabDelimitedServer(PORT).start();
         } catch (SocketException ex) {
             Logger.getLogger(MainClient.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -187,17 +185,15 @@ public class MainClient extends javax.swing.JFrame {
         
 
         try {
-            Person result = client.send(person, 9999);
+            Person result = client.send(person, PORT);
 
-            String[] split = result.toString().split("\t");
+            String name = result.getName();
+            String height = String.valueOf(result.getHeight());
+            String weight = String.valueOf(result.getWeight());
+            String bmi = String.valueOf(result.getBmi());
+            String health = result.getResult();
 
-            String name = split[0];
-            String height = split[1];
-            String weight = split[2];
-            String imb = split[3];
-            String health = split[4];
-
-            txtServerResponse.setText("Name: " + name + "\nHeight: " + height + "\nWeight: " + weight + "\nBMI " + imb +"\nYou are " +(char)34 + health + (char)34);
+            txtServerResponse.setText("Name: " + name + "\nHeight: " + height + "\nWeight: " + weight + "\nBMI " + bmi +"\nYou are " +(char)34 + health + (char)34);
         } catch (IOException ex) {
             Logger.getLogger(MainClient.class.getName()).log(Level.SEVERE, null, ex);
         }
