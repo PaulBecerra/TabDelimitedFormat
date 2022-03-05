@@ -64,7 +64,7 @@ public class TabDelimitedServer extends Thread {
                 // Calculates and stores the BMI from the weight and height revieved
                 double bmi = weight / (Math.pow(height, 2));
                 
-                /** format decimal numbers **/
+                /** format decimal scale **/
                 // double to BigDecimal
                 BigDecimal bmiBG = BigDecimal.valueOf(bmi);
                 // BigDecimal rounded to 2 decimals
