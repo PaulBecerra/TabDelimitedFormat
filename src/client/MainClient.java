@@ -17,14 +17,14 @@ import server.TabDelimitedServer;
  *
  * @author Carlos
  */
-public class JFCliente extends javax.swing.JFrame {
+public class MainClient extends javax.swing.JFrame {
 
     private TabDelimitedClient client;
 
     /**
      * Creates new form JFCliente
      */
-    public JFCliente() {
+    public MainClient() {
         initComponents();
         this.setLocationRelativeTo(null);
         txtServerResponse.setEditable(false);
@@ -32,7 +32,7 @@ public class JFCliente extends javax.swing.JFrame {
         try {
             new TabDelimitedServer(9999).start();
         } catch (SocketException ex) {
-            Logger.getLogger(JFCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -199,7 +199,7 @@ public class JFCliente extends javax.swing.JFrame {
 
             txtServerResponse.setText("Name: " + name + "\nHeight: " + height + "\nWeight: " + weight + "\nBMI " + imb +"\nYou are " +(char)34 + health + (char)34);
         } catch (IOException ex) {
-            Logger.getLogger(JFCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCalculateActionPerformed
 
@@ -220,20 +220,21 @@ public class JFCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFCliente().setVisible(true);
+                new MainClient().setVisible(true);
             }
         });
     }
